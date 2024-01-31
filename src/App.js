@@ -1,11 +1,13 @@
-import React, { useState } from "react";
 import "./App.css";
+import React, { useState } from "react";
+import { IsLoggedInContext } from "./contexts";
 import MemoList from "./memo_list";
 import MemoEditor from "./memo_editor";
 
 function App() {
   const [memos, setMemos] = useState({ ...localStorage });
   const [selectedId, setSelectedId] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   function addMemo() {
     const id = createId();
@@ -30,29 +32,39 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <body className="App-body">
-        <h1 className="title">{selectedId === null ? "一覧" : "編集"}</h1>
-        <div className="flexbox">
-          <div className="memo-list">
-            <MemoList
-              memos={memos}
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              addMemo={addMemo}
-            />
+    <IsLoggedInContext.Provider value={isLoggedIn}>
+      <div className="App">
+        <body className="App-body">
+          <h1 className="title">{selectedId === null ? "一覧" : "編集"}</h1>
+          <div className="login-flexbox">
+            <p className="login-status">
+              {isLoggedIn ? "ログイン済" : "未ログイン"}
+            </p>
+            <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+              {isLoggedIn ? "ログアウト" : "ログイン"}
+            </button>
           </div>
-          <div className="memo-editor">
-            <MemoEditor
-              key={selectedId}
-              selectedMemo={memos[selectedId]}
-              deleteMemo={deleteMemo}
-              editMemo={editMemo}
-            />
+          <div className="memo-flexbox">
+            <div className="memo-list">
+              <MemoList
+                memos={memos}
+                selectedId={selectedId}
+                setSelectedId={setSelectedId}
+                addMemo={addMemo}
+              />
+            </div>
+            <div className="memo-editor">
+              <MemoEditor
+                key={selectedId}
+                selectedMemo={memos[selectedId]}
+                deleteMemo={deleteMemo}
+                editMemo={editMemo}
+              />
+            </div>
           </div>
-        </div>
-      </body>
-    </div>
+        </body>
+      </div>
+    </IsLoggedInContext.Provider>
   );
 }
 

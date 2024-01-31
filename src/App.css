@@ -23,7 +23,7 @@
   justify-content: center;
 }
 
-.flexbox {
+.memo-flexbox {
   display: flex;
   height: 600px;
 }
@@ -37,4 +37,16 @@
 .memo-editor {
   margin: 10px;
   width: 100%;
+}
+
+.login-flexbox {
+  height: 40px;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-status {
+  margin: 10px;
+  vertical-align: baseline;
 }

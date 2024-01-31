@@ -1,13 +1,28 @@
 import "./memo_editor.css";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { IsLoggedInContext } from "./contexts";
 
 export default function MemoEditor({ selectedMemo, editMemo, deleteMemo }) {
   const [content, setContent] = useState(selectedMemo);
+  const isLoggedIn = useContext(IsLoggedInContext);
+  let editButton = null;
+  let deleteButton = null;
+  if (isLoggedIn) {
+    editButton = (
+      <button className="memo-editor-button" onClick={() => editMemo(content)}>
+        編集
+      </button>
+    );
+    deleteButton = (
+      <button className="memo-editor-button" onClick={() => deleteMemo()}>
+        削除
+      </button>
+    );
+  }
   if (selectedMemo === undefined) {
     return;
   }
-
   return (
     <>
       <textarea
@@ -15,12 +30,8 @@ export default function MemoEditor({ selectedMemo, editMemo, deleteMemo }) {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      <button className="memo-editor-button" onClick={() => editMemo(content)}>
-        編集
-      </button>
-      <button className="memo-editor-button" onClick={() => deleteMemo()}>
-        削除
-      </button>
+      {editButton}
+      {deleteButton}
     </>
   );
 }
