@@ -1,0 +1,14 @@
+.memo-content {
+  font-size: 16px;
+  border-radius: 20px;
+  padding: 20px;
+  width: 90%;
+  height: 90%;
+}
+
+.memo-editor-button {
+  border-width: 1px;
+  border-radius: 10px;
+  width: 200px;
+  height: 40px;
+}
