@@ -10,23 +10,15 @@ export default function MemoList({
 }) {
   const memoList = Object.entries(memos).map(([key, value]) => {
     const head = value.split("\n")[0];
-    if (key === selectedId) {
-      return (
-        <button className="memo-list-button selected" key={key}>
-          {head}
-        </button>
-      );
-    } else {
-      return (
-        <button
-          className="memo-list-button"
-          key={key}
-          onClick={() => setSelectedId(key)}
-        >
-          {head}
-        </button>
-      );
-    }
+    return (
+      <button
+        className={`memo-list-button ${key === selectedId ? "selected" : ""}`}
+        key={key}
+        onClick={() => setSelectedId(key)}
+      >
+        {head}
+      </button>
+    );
   });
   return (
     <>
