@@ -1,4 +1,4 @@
-import "./memo_list.css";
+import "./MemoList.css";
 import PropTypes from "prop-types";
 import React from "react";
 

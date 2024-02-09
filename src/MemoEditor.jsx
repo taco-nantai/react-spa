@@ -1,4 +1,4 @@
-import "./memo_editor.css";
+import "./MemoEditor.css";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 

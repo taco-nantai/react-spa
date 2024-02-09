@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
-import MemoList from "./memo_list";
-import MemoEditor from "./memo_editor";
+import MemoList from "./MemoList";
+import MemoEditor from "./MemoEditor";
 
 function App() {
   const [memos, setMemos] = useState(fetchMemos());
