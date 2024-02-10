@@ -1,0 +1,19 @@
+.memo-list-button {
+  font-size: 18px;
+  width: 200px;
+  margin: 5px;
+  height: 30px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: blue;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  flex-direction: column;
+}
+
+.selected {
+  color: blueviolet;
+}
