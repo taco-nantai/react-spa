@@ -1,7 +1,7 @@
 import "./MemoList.css";
 import PropTypes from "prop-types";
-import React, { useContext } from "react";
-import { IsLoggedInContext } from "./contexts";
+import React from "react";
+import { useIsLoggedIn } from "./isLoggedIn-hooks";
 
 export default function MemoList({
   memos,
@@ -23,7 +23,7 @@ export default function MemoList({
     );
   });
 
-  const isLoggedIn = useContext(IsLoggedInContext);
+  const { isLoggedIn } = useIsLoggedIn();
   const addButton = isLoggedIn ? (
     <button className="memo-list-button" onClick={addMemo}>
       +

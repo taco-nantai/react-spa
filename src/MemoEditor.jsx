@@ -1,11 +1,11 @@
 import "./MemoEditor.css";
 import PropTypes from "prop-types";
-import React, { useState, useContext } from "react";
-import { IsLoggedInContext } from "./contexts";
+import React, { useState } from "react";
+import { useIsLoggedIn } from "./isLoggedIn-hooks";
 
 export default function MemoEditor({ selectedMemo, editMemo, deleteMemo }) {
   const [content, setContent] = useState(selectedMemo);
-  const isLoggedIn = useContext(IsLoggedInContext);
+  const { isLoggedIn } = useIsLoggedIn();
   let editButton = null;
   let deleteButton = null;
   if (isLoggedIn) {
