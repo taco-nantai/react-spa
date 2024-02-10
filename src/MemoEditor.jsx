@@ -1,4 +1,4 @@
-import "./memo_editor.css";
+import "./MemoEditor.css";
 import PropTypes from "prop-types";
 import React, { useState, useContext } from "react";
 import { IsLoggedInContext } from "./contexts";

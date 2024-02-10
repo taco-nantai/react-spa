@@ -1,33 +1,56 @@
 import "./App.css";
 import React, { useState } from "react";
 import { IsLoggedInContext } from "./contexts";
-import MemoList from "./memo_list";
-import MemoEditor from "./memo_editor";
+import MemoList from "./MemoList";
+import MemoEditor from "./MemoEditor";
 
 function App() {
-  const [memos, setMemos] = useState({ ...localStorage });
+  const [memos, setMemos] = useState(fetchMemos());
+  const [memoOrder, setMemoOrder] = useState(fetchMemoOrder());
   const [selectedId, setSelectedId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function addMemo() {
-    const id = createId();
-    localStorage.setItem(id, "新規メモ");
-    setMemos({ ...localStorage });
+  function fetchMemos() {
+    const fetchedMemos = localStorage.getItem("memos");
+    if (fetchedMemos === null) return {};
+    return JSON.parse(fetchedMemos);
   }
 
-  function createId() {
-    const keys = Object.keys(localStorage);
-    return keys.length === 0 ? 0 : Math.max(...keys) + 1;
+  function fetchMemoOrder() {
+    const fetchedMemoOrder = localStorage.getItem("memoOrder");
+    if (fetchedMemoOrder === null) return [];
+    return JSON.parse(fetchedMemoOrder);
+  }
+
+  function addMemo() {
+    const id = crypto.randomUUID();
+    localStorage.setItem(
+      "memos",
+      JSON.stringify({ ...memos, [id]: "新規メモ" }),
+    );
+    setMemos(fetchMemos());
+    localStorage.setItem("memoOrder", JSON.stringify([...memoOrder, id]));
+    setMemoOrder(fetchMemoOrder());
   }
 
   function editMemo(content) {
-    localStorage.setItem(selectedId, content);
-    setMemos({ ...localStorage });
+    localStorage.setItem(
+      "memos",
+      JSON.stringify({ ...memos, [selectedId]: content }),
+    );
+    setMemos(fetchMemos());
   }
 
   function deleteMemo() {
-    localStorage.removeItem(selectedId);
-    setMemos({ ...localStorage });
+    let nextMemos = { ...memos };
+    delete nextMemos[selectedId];
+    localStorage.setItem("memos", JSON.stringify(nextMemos));
+    setMemos(fetchMemos());
+    localStorage.setItem(
+      "memoOrder",
+      JSON.stringify(memoOrder.filter((id) => id !== selectedId)),
+    );
+    setMemoOrder(fetchMemoOrder());
     setSelectedId(null);
   }
 
@@ -48,6 +71,7 @@ function App() {
             <div className="memo-list">
               <MemoList
                 memos={memos}
+                memoOrder={memoOrder}
                 selectedId={selectedId}
                 setSelectedId={setSelectedId}
                 addMemo={addMemo}
