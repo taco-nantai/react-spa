@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import "./App.css";
 import MemoList from "./MemoList";
 import MemoEditor from "./MemoEditor";
@@ -40,8 +40,10 @@ function App() {
   }
 
   function deleteMemo() {
-    let nextMemos = { ...memos };
-    delete nextMemos[selectedId];
+    const nextMemos = Object.fromEntries(
+      Object.entries(memos)
+      .filter(([id]) => id !== selectedId)
+    );
     localStorage.setItem("memos", JSON.stringify(nextMemos));
     setMemos(fetchMemos());
     localStorage.setItem(
