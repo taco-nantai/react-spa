@@ -4,18 +4,17 @@ import React from "react";
 
 export default function MemoList({
   memos,
-  memoOrder,
   addMemo,
   selectedId,
   setSelectedId,
 }) {
-  const memoList = memoOrder.map((id) => {
-    const head = memos[id].split("\n")[0];
+  const memoList = memos.map((memo) => {
+    const head = memo.content.split("\n")[0];
     return (
       <button
-        className={`memo-list-button ${id === selectedId ? "selected" : ""}`}
-        key={id}
-        onClick={() => setSelectedId(id)}
+        className={`memo-list-button ${memo.id === selectedId ? "selected" : ""}`}
+        key={memo.id}
+        onClick={() => setSelectedId(memo.id)}
       >
         {head}
       </button>
@@ -34,7 +33,6 @@ export default function MemoList({
 
 MemoList.propTypes = {
   memos: PropTypes.object.isRequired,
-  memoOrder: PropTypes.array.isRequired,
   addMemo: PropTypes.func.isRequired,
   selectedId: PropTypes.string.isRequired,
   setSelectedId: PropTypes.func.isRequired,

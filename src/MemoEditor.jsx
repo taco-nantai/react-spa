@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 export default function MemoEditor({ selectedMemo, editMemo, deleteMemo }) {
-  const [content, setContent] = useState(selectedMemo);
+  const [memo, setMemo] = useState(selectedMemo);
   if (selectedMemo === undefined) {
     return;
   }
@@ -12,10 +12,13 @@ export default function MemoEditor({ selectedMemo, editMemo, deleteMemo }) {
     <>
       <textarea
         className="memo-content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+        value={memo.content}
+        onChange={(e) => setMemo({ ...memo, content: e.target.value })}
       />
-      <button className="memo-editor-button" onClick={() => editMemo(content)}>
+      <button
+        className="memo-editor-button"
+        onClick={() => editMemo(memo.content)}
+      >
         編集
       </button>
       <button className="memo-editor-button" onClick={() => deleteMemo()}>
